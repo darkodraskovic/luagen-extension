@@ -24,12 +24,6 @@ function Ellipse:add(opt)
     self.size = self.properties.radius*2 + vector(lw/2, lw/2)
 end
 
-function Ellipse:transformCanvas()
-    love.graphics.translate((self.size/2):unpack())
-    
-    Shape.transformCanvas(self)
-end
-
 function Ellipse:drawGraphics()
     Shape.modeDraw(self, 0, 0, self.properties.radius:unpack())
 end

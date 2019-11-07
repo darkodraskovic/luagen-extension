@@ -30,22 +30,17 @@ function Shape.modeDraw(o, ...)
     end
 end
 
-function Shape:transformCanvas()
-    local transform = self.transform:clone():translate((-self.pos):unpack())
-    love.graphics.applyTransform(transform)
-end
-
-function Shape:drawOnCanvas(canvas)
-    local canvas = canvas or love.graphics.newCanvas(self.size:unpack())
+function Shape:drawOnCanvas(opt)
+    local canvas = (opt and opt.canvas) or love.graphics.newCanvas(self.size:unpack())
+    local transform = (opt and opt.transform) or love.math.newTransform( )
     love.graphics.reset()
     love.graphics.setCanvas(canvas)
+    love.graphics.applyTransform(transform)
     
-    self:transformCanvas()
     self:setGraphics()
-    self:drawShape()
+    self:drawGraphics()
     
     love.graphics.reset()
-    
     return canvas    
 end
 
