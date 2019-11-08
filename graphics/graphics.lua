@@ -9,23 +9,10 @@ local Graphics = Class{
     name = 'graphics',
 }
 
-function Graphics:init()
-    Entity.init(self)
-    self.properties = {}
-    self.properties.graphics = {}
-end
-
 function Graphics:add(opt)
-    self.name = opt.name or self.name
+    Entity.add(self, opt)
     
-    self.pos = (opt.pos and opt.pos:clone()) or self.pos
-    self.scale = (opt.scale and opt.scale:clone()) or self.scale
-    self.rot = opt.rot or self.rot
-    
-    for k,v in pairs(opt) do
-        local p = k:gsub("^%l", string.upper)
-        if love.graphics['set' .. p] then self.properties.graphics['set' .. p] = v end
-    end
+    self.properties.graphics = (opt.graphics and Class.clone(opt.graphics)) or {}
 end
 
 function Graphics:setGraphics()

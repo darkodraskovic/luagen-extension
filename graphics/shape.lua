@@ -17,6 +17,13 @@ function Shape:add(opt)
     self.properties.line = opt.line
 end
 
+function Shape:setSize(width, height)
+    local lw = self.properties.graphics.setLineWidth or 0
+    local w = width or 0
+    local h = height or w
+    self.size = vector(w,h) + vector(lw/2, lw/2)
+end
+
 function Shape.modeDraw(o, ...)
     local mode, fill, line = o.properties.mode, o.properties.fill, o.properties.line
     if mode then love.graphics[o.shape](mode,...) return end
