@@ -31,7 +31,7 @@ end
 
 function Text:drawGraphics()
     local p = self.properties
-    love.graphics.printf(p.text, p.font, 0, p._vAlign, self.size.x, p.hAlign)    
+    love.graphics.printf(p.text, p.font, 0, p._vAlign, self.size.x, p.hAlign)
 end
 
 return Text

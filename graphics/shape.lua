@@ -18,37 +18,21 @@ function Shape:add(opt)
 end
 
 function Shape:setSize(width, height)
-    local lw = self.properties.graphics.setLineWidth or 0
     local w = width or 0
     local h = height or w
-    self.size = vector(w,h) + vector(lw/2, lw/2)
+    self.size = vector(w,h)
 end
 
-function Shape.modeDraw(o, ...)
-    local mode, fill, line = o.properties.mode, o.properties.fill, o.properties.line
-    if mode then love.graphics[o.shape](mode,...) return end
+function Shape:drawGraphics(...)
+    fill, line = self.properties.fill, self.properties.line
     if fill then
         love.graphics.setColor(fill)
-        love.graphics[o.shape]('fill',...)
+        love.graphics[self.shape]('fill',...)
     end
     if line then
         love.graphics.setColor(line)
-        love.graphics[o.shape]('line',...)
+        love.graphics[self.shape]('line',...)
     end
-end
-
-function Shape:drawOnCanvas(opt)
-    local canvas = (opt and opt.canvas) or love.graphics.newCanvas(self.size:unpack())
-    local transform = (opt and opt.transform) or love.math.newTransform( )
-    love.graphics.reset()
-    love.graphics.setCanvas(canvas)
-    love.graphics.applyTransform(transform)
-    
-    self:setGraphics()
-    self:drawGraphics()
-    
-    love.graphics.reset()
-    return canvas    
 end
 
 return Shape

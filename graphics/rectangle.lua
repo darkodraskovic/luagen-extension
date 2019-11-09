@@ -22,12 +22,15 @@ end
 
 function Rectangle:getShape(opt)
     local s = self.size
-    return shapes.newPolygonShape(0,0, s.x,0, s.x,s.y, 0,s.y)
+    local shape = shapes.newPolygonShape(0,0, s.x,0, s.x,s.y, 0,s.y)
+    local offset = self.size/2
+    return shape, offset
 end
 
 function Rectangle:drawGraphics()
     local s, rx, ry = self.size, self.properties.rx, self.properties.ry
-    Shape.modeDraw(self, 0, 0, s.x, s.y, rx, ry)
+    
+    Shape.drawGraphics(self, 0, 0, s.x, s.y, rx, ry)
 end
 
 return Rectangle

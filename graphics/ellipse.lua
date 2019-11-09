@@ -1,5 +1,6 @@
 local Class = require 'lib.hump.class'
 local vector = require 'lib.hump.vector'
+local shapes = require 'lib.HC.shapes'
 
 local Shape = require 'graphics.shape'
 
@@ -17,11 +18,16 @@ function Ellipse:add(opt)
 end
 
 function Ellipse:getShape(opt)
-    return shapes.newCircleShape(0,0,self.size.x/2)
+    local shape = shapes.newCircleShape(0,0,self.size.x/2)
+    local offset = self.size/2
+    return shape, offset
 end
 
 function Ellipse:drawGraphics()
-    Shape.modeDraw(self, 0, 0, (self.size/2):unpack())
+    local x,y = (self.size/2):unpack()
+    love.graphics.translate(x, y)
+    
+    Shape.drawGraphics(self, 0, 0, x, y)
 end
 
 return Ellipse
