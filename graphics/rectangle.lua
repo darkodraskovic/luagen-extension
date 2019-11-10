@@ -2,7 +2,7 @@ local Class = require 'lib.hump.class'
 local vector = require 'lib.hump.vector'
 local shapes = require 'lib.HC.shapes'
 
-local Shape = require 'graphics.shape'
+local Shape = require 'extension.graphics.shape'
 
 local Rectangle = Class{
     __includes = Shape,

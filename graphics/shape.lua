@@ -1,7 +1,7 @@
 local Class = require 'lib.hump.class'
 local vector = require 'lib.hump.vector'
 
-local Graphics = require 'graphics.graphics'
+local Graphics = require 'extension.graphics.graphics'
 
 local Shape = Class{
     __includes = Graphics,
