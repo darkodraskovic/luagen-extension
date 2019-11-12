@@ -17,12 +17,6 @@ function Shape:add(opt)
     self.properties.line = opt.line
 end
 
-function Shape:setSize(width, height)
-    local w = width or 0
-    local h = height or w
-    self.size = vector(w,h)
-end
-
 function Shape:drawGraphics(...)
     fill, line = self.properties.fill, self.properties.line
     if fill then

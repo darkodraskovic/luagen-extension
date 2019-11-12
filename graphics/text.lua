@@ -13,7 +13,10 @@ function Text:add(opt)
     
     self.properties.text = opt.text or ""
     self.properties.font = opt.font or love.graphics.getFont()
-    self.size = (opt.size and opt.size:clone()) or vector(0,0)
+    
+    if opt.size then self.size = opt.size:clone()
+    else self:setSize(opt.width, opt.height) end
+
     if self.size.x == 0 then
         self.size.x = self:getTextWidth()
     end

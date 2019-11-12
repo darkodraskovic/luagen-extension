@@ -15,6 +15,12 @@ function Graphics:add(opt)
     self.properties.graphics = (opt.graphics and Class.clone(opt.graphics)) or {}
 end
 
+function Graphics:setSize(width, height)
+    local w = width or 0
+    local h = height or w
+    self.size = vector(w,h)
+end
+
 function Graphics:setGraphics()
     for k,v in pairs(self.properties.graphics) do love.graphics[k](v) end
 end
