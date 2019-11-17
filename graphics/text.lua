@@ -39,9 +39,11 @@ function Text:setVAlign(align)
 end
 
 
-function Text:drawGraphics()
+function Text:draw()
     local p = self.properties
     love.graphics.printf(p.text, p.font, 0, p._vAlign, self.size.x, p.hAlign)
+
+    Graphics.draw(self)
 end
 
 return Text

@@ -23,11 +23,12 @@ function Ellipse:getShape(opt)
     return shape, offset
 end
 
-function Ellipse:drawGraphics()
+function Ellipse:draw()
     local x,y = (self.size/2):unpack()
     love.graphics.translate(x, y)
-    
-    Shape.drawGraphics(self, 0, 0, x, y)
+    self:drawMode(0, 0, x, y)
+
+    Shape.draw(self)
 end
 
 return Ellipse

@@ -16,8 +16,10 @@ function Line:add(opt)
     self.properties.points = opt.points or {0,0,0,0}
 end
 
-function Line:drawGraphics()
+function Line:draw()
     love.graphics.line(unpack(self.properties.points))
+    
+    Shape.draw(self)
 end
 
 return Line

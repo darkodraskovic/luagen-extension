@@ -17,7 +17,7 @@ function Shape:add(opt)
     self.properties.line = opt.line
 end
 
-function Shape:drawGraphics(...)
+function Shape:drawMode(...)
     fill, line = self.properties.fill, self.properties.line
     if fill then
         love.graphics.setColor(fill)

@@ -27,10 +27,11 @@ function Rectangle:getShape(opt)
     return shape, offset
 end
 
-function Rectangle:drawGraphics()
+function Rectangle:draw()
     local s, rx, ry = self.size, self.properties.rx, self.properties.ry
-    
-    Shape.drawGraphics(self, 0, 0, s.x, s.y, rx, ry)
+    self:drawMode(0, 0, s.x, s.y, rx, ry)
+
+    Shape.draw(self)
 end
 
 return Rectangle
