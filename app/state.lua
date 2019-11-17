@@ -3,12 +3,14 @@ local Class = require 'lib.hump.class'
 local Signaler = require 'lib.core.signaler'
 local Scene = require 'lib.core.scene'
 
-local State = Class{__includes = Signaler}
+local Input = require 'extension.app.input'
+
+local State = Class{__includes = {Signaler, Input}}
 
 function State:init()
     Signaler.init(self)
-    
-    self.keys = {}
+    Input.init(self)
+
     self.scenes = {}
 end
 
@@ -24,23 +26,6 @@ end
 function State:removeScene(scene)
     for i,v in ipairs(self.scenes) do
         if scene == v then table.remove(self.scenes, i); v:remove() end
-    end    
-end
-
--- input
-
-function State:addKeyAction(key, action)
-    self.keys[key] = action
-end
-
-function State:getKeyAction(key)
-    return self.keys[key]
-end
-
-function State:isKeyAction(action)
-    for k,v in pairs(self.keys) do
-        if v == action and love.keyboard.isDown(k) then
-            return true end
     end
 end
 
