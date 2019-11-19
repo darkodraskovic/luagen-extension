@@ -13,9 +13,8 @@ function Graphics:add(opt)
     Entity.add(self, opt)
 
     self:register('pre-draw', function() self:preDraw() end)
-    self:register('post-draw', function() self:postDraw() end)
     
-    self.properties.graphics = (opt.graphics and Class.clone(opt.graphics)) or {}
+    self.properties.graphics = (opt and opt.graphics and Class.clone(opt.graphics)) or {}
 end
 
 function Graphics:setSize(width, height)
@@ -24,18 +23,8 @@ function Graphics:setSize(width, height)
     self.size = vector(w,h)
 end
 
-function Graphics:setGraphics()
-    for k,v in pairs(self.properties.graphics) do love.graphics[k](v) end
-end
-
 function Graphics:preDraw()
-    love.graphics.reset()
-    self:setGraphics()
-    love.graphics.applyTransform(self.transform)
-end
-
-function Graphics:postDraw()
-    love.graphics.reset()
+    for k,v in pairs(self.properties.graphics) do love.graphics[k](v) end
 end
 
 return Graphics

@@ -7,7 +7,6 @@ local Shader = Class{
 
 function Shader:add(opt)
     local e = self.entity
-    if opt.dynamics then e:register('pre-update', function(dt) self:preUpdate(dt) end) end
     e:register('pre-draw', function() self:preDraw() end)
     e:register('post-draw', function() self:postDraw() end)
     
@@ -16,11 +15,9 @@ function Shader:add(opt)
     self.dynamics = opt.dynamics or {}
 end
 
-function Shader:preUpdate(dt)
-    for k,v in pairs(self.dynamics) do self.uniforms[k] = v(dt) end
-end
-
 function Shader:preDraw()
+    local dt = love.timer.getDelta()
+    for k,v in pairs(self.dynamics) do self.uniforms[k] = v(dt) end
     for k,v in pairs(self.uniforms) do self.shader:send(k, v) end
     love.graphics.setShader(self.shader)
 end
