@@ -5,6 +5,9 @@ local Shader = Class{
     name = 'shader'
 }
 
+local start = love.timer.getTime()
+local width, height = love.graphics.getDimensions()
+
 function Shader:add(opt)
     local e = self.entity
     e:register('pre-draw', function() self:preDraw() end)
@@ -24,6 +27,27 @@ end
 
 function Shader:postDraw()
     love.graphics.setShader()
+end
+
+-- dynamics
+
+function Shader.uMouse()
+    return {love.mouse.getPosition()}
+end
+
+function Shader.uMouseN()
+    local x,y = love.mouse.getPosition()
+    return {x/width, y/height}
+end
+
+function Shader.uTime()
+    return love.timer.getTime() - start    
+end
+
+-- uniforms
+
+function Shader.uResolution()
+    return {love.graphics.getDimensions()}
 end
 
 return Shader
