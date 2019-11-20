@@ -9,6 +9,12 @@ local Graphics = Class{
     name = 'graphics',
 }
 
+function Graphics:init()
+    Entity.init(self)
+    
+    self.size = vector(0,0)
+end
+
 function Graphics:add(opt)
     Entity.add(self, opt)
 
