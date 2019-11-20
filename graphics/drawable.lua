@@ -14,8 +14,6 @@ function Drawable:add(opt)
 end
 
 function Drawable:setDrawable(drawable, w, h)
-    local drawable = assert(drawable, "drawable is mandatory")
-    local w, h = w or 0, h or 0
     if drawable.getDimensions then w, h = drawable:getDimensions() end
     self:setSize(w, h)
     self.properties.drawable = drawable
