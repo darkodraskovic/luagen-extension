@@ -29,9 +29,7 @@ end
 
 function Rectangle:draw()
     local s, rx, ry = self.size, self.properties.rx, self.properties.ry
-    self:drawMode(0, 0, s.x, s.y, rx, ry)
-
-    Shape.draw(self)
+    Shape.draw(self, 0, 0, s.x, s.y, rx, ry)
 end
 
 return Rectangle

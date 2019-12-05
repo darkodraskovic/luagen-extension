@@ -12,12 +12,11 @@ local Shape = Class{
 function Shape:add(opt)
     Graphics.add(self, opt)
     
-    self.properties.mode = opt.mode
     self.properties.fill = opt.fill
     self.properties.line = opt.line
 end
 
-function Shape:drawMode(...)
+function Shape:draw(...)
     fill, line = self.properties.fill, self.properties.line
     if fill then
         love.graphics.setColor(fill)
@@ -27,6 +26,8 @@ function Shape:drawMode(...)
         love.graphics.setColor(line)
         love.graphics[self.shape]('line',...)
     end
+    
+    Graphics.draw(self)
 end
 
 return Shape

@@ -26,9 +26,7 @@ end
 function Ellipse:draw()
     local x,y = (self.size/2):unpack()
     love.graphics.translate(x, y)
-    self:drawMode(0, 0, x, y)
-
-    Shape.draw(self)
+    Shape.draw(self, 0, 0, x, y)
 end
 
 return Ellipse

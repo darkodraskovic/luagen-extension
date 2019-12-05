@@ -1,5 +1,6 @@
 local Class = require 'lib.hump.class'
 local vector = require 'lib.hump.vector'
+local shapes = require 'lib.HC.shapes'
 
 local Graphics = require 'extension.graphics.graphics'
 
@@ -16,10 +17,9 @@ function Text:add(opt)
     
     if opt.size then self.size = opt.size:clone()
     else self:setSize(opt.width, opt.height) end
-
-    if self.size.x == 0 then
-        self.size.x = self:getTextWidth()
-    end
+    if self.size.x == 0 then self.size.x = self:getTextWidth() end
+    if self.size.y == 0 then self.size.y = self.properties.font:getHeight() end
+    
     self.properties.hAlign = opt.hAlign or 'center'
     self:setVAlign(opt.vAlign or 'center')
 end
@@ -38,6 +38,12 @@ function Text:setVAlign(align)
     end
 end
 
+function Text:getShape()
+    w, h = self:getTextWidth(), self.properties.font:getHeight()
+    local shape = shapes.newPolygonShape(0,0, w,0, w,h, 0,h)
+    local offset = vector(w/2, h/2)
+    return shape, offset
+end
 
 function Text:draw()
     local p = self.properties

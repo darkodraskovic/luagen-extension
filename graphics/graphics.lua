@@ -16,11 +16,12 @@ function Graphics:init()
 end
 
 function Graphics:add(opt)
+    opt = assert(opt, "opt obj is mandatory")
     Entity.add(self, opt)
 
     self:register('pre-draw', function() self:preDraw() end)
     
-    self.properties.graphics = (opt and opt.graphics and Class.clone(opt.graphics)) or {}
+    self.properties.graphics = opt.graphics and Class.clone(opt.graphics) or {}
 end
 
 function Graphics:setSize(width, height)
