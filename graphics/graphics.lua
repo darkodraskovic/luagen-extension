@@ -9,6 +9,11 @@ local Graphics = Class{
     name = 'graphics',
 }
 
+function Graphics.hex2rgb(hex)
+    hex = hex:gsub("#","")
+    return {tonumber("0x"..hex:sub(1,2))/255, tonumber("0x"..hex:sub(3,4))/255, tonumber("0x"..hex:sub(5,6))/255, tonumber("0x"..hex:sub(7,8))/255}
+end
+
 function Graphics:init()
     Entity.init(self)
     
@@ -20,8 +25,14 @@ function Graphics:add(opt)
     Entity.add(self, opt)
 
     self:register('pre-draw', function() self:preDraw() end)
-    
-    self.properties.graphics = opt.graphics and Class.clone(opt.graphics) or {}
+
+    local p = self.properties
+    p.graphics = opt.graphics and Class.clone(opt.graphics) or {}
+    if type(p.graphics.setColor) == 'string' then
+        p.graphics.setColor = Graphics.hex2rgb(p.graphics.setColor)
+    else
+        p.graphics.setColor = p.graphics.setColor or {1,1,1,1}
+    end
 end
 
 function Graphics:setSize(width, height)

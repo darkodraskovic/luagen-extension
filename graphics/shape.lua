@@ -17,7 +17,11 @@ function Shape:add(opt)
 end
 
 function Shape:draw(...)
-    fill, line = self.properties.fill, self.properties.line
+    mode, fill, line = self.properties.mode, self.properties.fill, self.properties.line
+    if mode then
+        love.graphics[self.shape](mode,...)
+        return
+    end
     if fill then
         love.graphics.setColor(fill)
         love.graphics[self.shape]('fill',...)
