@@ -12,13 +12,14 @@ function State:init()
     Input.init(self)
 
     self.scenes = {}
+    self.properties = {}
 end
 
 -- scenes
 
-function State:addScene(persistent)
+function State:addScene()
     local scene = Scene()
-    scene.properties.persistent = persistent
+    scene.state = self
     table.insert(self.scenes, scene)
     return scene
 end
@@ -39,6 +40,10 @@ function State:draw()
     for i,v in ipairs(self.scenes) do v:draw() end
 end
 
+function State:keypressed(key, ...)
+    if self.keySignals[key] then self:emit(self.keySignals[key], key, ...) end
+end
+
 function State:mousepressed(...)
     for i,v in ipairs(self.scenes) do v:emit('mousepressed', ...) end
 end
@@ -47,7 +52,7 @@ function State:mousereleased(...)
     for i,v in ipairs(self.scenes) do v:emit('mousereleased', ...) end
 end
 
--- release
+-- remove
 
 function State:leave()
     for i,v in ipairs(self.scenes) do
