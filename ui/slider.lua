@@ -39,9 +39,6 @@ function Slider:add(opt)
     end
     self.size = vector(w,h)
     
-    local shape = shapes.newPolygonShape(0,0, w,0, w,h, 0,h)
-    self:addComponent(Collider, {shape = shape, offset = self.size/2})
-
     opt.bar.parent = self; opt.handle.parent = self
     local bar = self.scene:addEntity(Rectangle, opt.bar)
     local handle = self.scene:addEntity(Rectangle, opt.handle)
@@ -90,7 +87,6 @@ end
 function Slider:draw()
     Entity.draw(self)
     
-    self.collider:draw()
     self.children[2].collider:draw()
 end
 

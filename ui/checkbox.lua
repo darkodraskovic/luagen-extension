@@ -24,25 +24,23 @@ function Checkbox:add(opt)
     local inner = self.scene:addEntity(Rectangle, opt.inner)
     inner.pos = (outer.size - inner.size)/2
     inner.visible = false
-    self.size = outer.size:clone()
 
     local shape, offset = outer:getShape()
-    outer:addComponent(Collider, {shape = shape, offset = offset, collides = false})
-    outer:addComponent(Pickable)
+    self:addComponent(Collider, {shape = shape, offset = offset, collides = false})
+    self:addComponent(Pickable)
 
-    self:register(outer.signals, 'mousepressed', function(...) self:mousepressed(...) end)
+    self:register('mousepressed', function(...) self:mousepressed(...) end)
 end
 
 function Checkbox:mousepressed(e, x, y, button)
     local inner = self.children[2]
     inner.visible, self.checked = not inner.visible, not inner.visible
-    self:emit('checked', self, self.checked)
 end
 
-function Checkbox:draw()    
+function Checkbox:draw()
     Entity.draw(self)
     
-    self.children[1].collider:draw()
+    self.collider:draw()
 end
 
 return Checkbox

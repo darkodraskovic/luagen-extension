@@ -31,6 +31,10 @@ end
 
 -- dynamics
 
+function Shader.uTime()
+    return love.timer.getTime() - start    
+end
+
 function Shader.uMouse()
     return {love.mouse.getPosition()}
 end
@@ -40,14 +44,10 @@ function Shader.uMouseN()
     return {x/width, y/height}
 end
 
-function Shader.uTime()
-    return love.timer.getTime() - start    
-end
-
 -- uniforms
 
 function Shader.uResolution()
-    return {love.graphics.getDimensions()}
+    return {width, height}
 end
 
 return Shader
