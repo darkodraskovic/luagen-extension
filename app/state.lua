@@ -42,6 +42,7 @@ end
 
 function State:keypressed(key, ...)
     if self.keySignals[key] then self:emit(self.keySignals[key], key, ...) end
+    for i,v in ipairs(self.scenes) do v:emit('keypressed', ...) end
 end
 
 function State:mousepressed(...)

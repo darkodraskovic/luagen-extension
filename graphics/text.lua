@@ -14,11 +14,13 @@ function Text:add(opt)
     
     self.properties.text = opt.text or ""
     self.properties.font = opt.font or love.graphics.getFont()
-    
+
     if opt.size then self.size = opt.size:clone()
-    else self:setSize(opt.width, opt.height) end
-    if self.size.x == 0 then self.size.x = self:getTextWidth() end
-    if self.size.y == 0 then self.size.y = self.properties.font:getHeight() end
+    else
+        local w = opt.width or self:getTextWidth()
+        local h = opt.height or self.properties.font:getHeight()
+        self:setSize(w,h)
+    end
     
     self.properties.hAlign = opt.hAlign or 'center'
     self:setVAlign(opt.vAlign or 'center')
@@ -39,7 +41,8 @@ function Text:setVAlign(align)
 end
 
 function Text:getShape()
-    w, h = self:getTextWidth(), self.properties.font:getHeight()
+    -- w, h = self:getTextWidth(), self.properties.font:getHeight()
+    w, h = self.size:unpack()
     local shape = shapes.newPolygonShape(0,0, w,0, w,h, 0,h)
     local offset = vector(w/2, h/2)
     return shape, offset
